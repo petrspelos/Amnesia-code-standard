@@ -43,7 +43,7 @@ To avoid this issue, a unique custom story prefix is recommended for all custom 
 
 An example prefix for a custom story called `The Adventures of Phill` might be `TAoP` and the custom files might be something like `TAoP_Village.map`, `TAoP_Dialogue01_Kate_00.ogg`, etc.
 
-This standard demands a use of a single prefix for **all custom files.**
+This standard demands a use of a single prefix for **all custom files and maps.**
 
 ## extra_english.lang
 The "extra_english.lang" file should adhere to the common XML schema rules. The main tag names must be typed in all capital letters.
