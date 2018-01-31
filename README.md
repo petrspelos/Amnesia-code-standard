@@ -1,6 +1,8 @@
 # This is an open standard of writing Amnesia: The Dark Descent custom story code
 Anyone is free to follow this standard.
 
+[extra_english.lang](#extra_englishlang)
+
 ## extra_english.lang
 The "extra_english.lang" file should adhere to the common XML schema rules. The main tag names must be typed in all capital letters.
 
