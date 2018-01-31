@@ -1,4 +1,4 @@
-# This is an open standard of writing Amnesia: The Dark Descent custom story code
+# An open standard for Amnesia: The Dark Descent custom stories
 Anyone is free to follow this standard.
 
 **Quick selection:**
