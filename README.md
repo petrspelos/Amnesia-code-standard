@@ -64,7 +64,7 @@ With each new depth the indentation increases by one `TAB`.
 
 ### Spacing
 
-No space should be left between Entries in a single Category. The only exception are tags forming pairs. These pairs of Entry tags should be separated by an empty line.
+No space should be left between Entries in a single Category. An exception to this rule are tags forming pairs. These pairs of Entry tags should be separated by an empty line.
 
 ```xml
    <Entry Name="Note_HiddenNote_Name">A hidden note</Entry>
@@ -75,6 +75,8 @@ No space should be left between Entries in a single Category. The only exception
 ```
 
 This is done to visually separate pairs.
+
+Another exception is a space between Entries of different type belonging to the same Category. For example `Notes`, `Diaries` and `Quests` share the same Category (`Journal`) there should be an empty line between the last Diary and the first Quest. No line should be left blank between individual Quests, however.
 
 ## HPS Files
 
