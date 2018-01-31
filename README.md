@@ -4,19 +4,19 @@ Anyone is free to follow this standard.
 **Quick selection:**
 
 * [extra_english.lang](#extra_englishlang)
-    * [Template](#extra_englishlang)
-    * [Comments](#extra_englishlang)
-    * [Category and Entry](#extra_englishlang)
-    * [Indentation](#extra_englishlang)
-* [HPS Files](#extra_englishlang)
-    * [Template](#extra_englishlang)
-    * [Banners](#extra_englishlang)
-        * [Special banners](#extra_englishlang)
-    * [Module variables](#extra_englishlang)
-    * [Functions](#extra_englishlang)
-    * [Debug actions](#extra_englishlang)
-    * [For loop](#extra_englishlang)
-    * [Event initialization](#extra_englishlang)
+    * [Template](#template)
+    * [Comments](#comments)
+    * [Category and Entry](#category-and-entry)
+    * [Indentation](#indentation)
+* [HPS Files](#hps-files)
+    * [Template](#template-1)
+    * [Banners](#banners)
+        * [Special banners](#special-banners)
+    * [Module variables](#module-variables)
+    * [Functions](#functions)
+    * [Debug actions](#debug-actions)
+    * [For loop](#for-loop)
+    * [Event initialization](#event-initialization)
 
 ## extra_english.lang
 The "extra_english.lang" file should adhere to the common XML schema rules. The main tag names must be typed in all capital letters.
