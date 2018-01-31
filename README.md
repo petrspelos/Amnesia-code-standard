@@ -4,6 +4,7 @@ Anyone is free to follow this standard.
 
 **Quick selection:**
 
+* [File naming](#file-naming)
 * [extra_english.lang](#extra_englishlang)
     * [Template](#template)
     * [Comments](#comments)
@@ -19,6 +20,30 @@ Anyone is free to follow this standard.
     * [Debug actions](#debug-actions)
     * [For loop](#for-loop)
     * [Event initialization](#event-initialization)
+## Custom Story structure
+The directory of a custom story should contain all non-empty folders needed for the full and intended playthrough of the mod.
+
+These folders must (according to this standard) mirror Amnesia: The Dark Descent's internal folder structure. That is **lowercase letters of the English alphabet** and an underscore `_` for word separation.
+
+### File naming
+:warning: **Failure to understand this section might lead to game-breaking bugs!**
+
+When loading custom stories, Amnesia follows the alphabetical order of the custom story's folder names.
+Let's assume we have the following custom story folders inside Amnesia's `custom_stories` directory:
+
+`A_CustomStory`
+`B_CustomStory`
+`C_CustomStory`
+
+No matter what their name inside `custom_story_settings.cfg` is, they will be loaded in that order. That is Alphabetically according to their folder names.
+
+If `A_CustomStory` has a map called `Cellar.map` and `B_CustomStory` has a map of the same name inside its folder, `A_CustomStory/maps/Cellar.map` might be loaded even for `B_CustomStory`.
+
+To avoid this issue, a unique custom story prefix is recommended for all custom assets. This prefix can be derived from the project's name, or it can be completely random, it does, however, need to be unique enough to minimize a chance of a different custom story having files of the same name.
+
+An example prefix for a custom story called `The Adventures of Phill` might be `TAoP` and the custom files might be something like `TAoP_Village.map`, `TAoP_Dialogue01_Kate_00.ogg`, etc.
+
+This standard demands a use of a single prefix for **all custom files.**
 
 ## extra_english.lang
 The "extra_english.lang" file should adhere to the common XML schema rules. The main tag names must be typed in all capital letters.
