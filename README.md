@@ -9,6 +9,7 @@ Anyone is free to follow this standard.
     * [Comments](#comments)
     * [Category and Entry](#category-and-entry)
     * [Indentation](#indentation)
+    * [Spacing](#spacing)
 * [HPS Files](#hps-files)
     * [Template](#template-1)
     * [Banners](#banners)
@@ -60,6 +61,20 @@ New categories and entries should be in the following format:
 ### Indentation
 
 With each new depth the indentation increases by one `TAB`.
+
+### Spacing
+
+No space should be left between Entries in a single Category. The only exception are tags forming pairs. These pairs of Entry tags should be separated by an empty line.
+
+```xml
+   <Entry Name="Note_HiddenNote_Name">A hidden note</Entry>
+   <Entry Name="Note_HiddenNote_Text">...</Entry>
+
+   <Entry Name="Note_OtherNote_Name">A different note</Entry>
+   <Entry Name="Note_OtherNote_Text">...</Entry>
+```
+
+This is done to visually separate pairs.
 
 ## HPS Files
 
