@@ -1,4 +1,5 @@
-# An open standard for Amnesia: The Dark Descent custom stories
+# Amnesia: The Dark Descent custom stories
+## Open content standard
 Anyone is free to follow this standard.
 
 **Quick selection:**
