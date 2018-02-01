@@ -203,8 +203,8 @@ If the variable does not change or references a static type (such as a sound fil
 // ---------------------------
 // MyFirstModule - mfm
 // ---------------------------
-string const mfmSoundFile = "sound_file.snt";
-string const mfmEntityToMove = "MyEntity";
+const string mfmSoundFile = "sound_file.snt";
+const string mfmEntityToMove = "MyEntity";
 ```
 
 ### Functions
