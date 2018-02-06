@@ -20,6 +20,7 @@ Anyone is free to follow this standard.
     * [Debug actions](#debug-actions)
     * [For loop](#for-loop)
     * [Switch statements](#switch-statement)
+    * [Private functions](#private-functions)
     * [Event initialization](#event-initialization)
 ## Custom Story structure
 The directory of a custom story should contain all non-empty folders needed for the full and intended playthrough of the mod.
