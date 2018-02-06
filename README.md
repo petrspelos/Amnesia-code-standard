@@ -302,6 +302,27 @@ void _DoAction()
 }
 ```
 
+### Calling functions with long signatures
+
+Amnesia has a number of functions with a very long signature. Especially the parameters list. The prefered way of organizing long function signatures is with the following style:
+
+Example (Playing voiceover files):
+
+```cs
+AddEffectVoice(
+    myFile,                 /* Voice File */
+    "",                     /* Effect File */
+    "MyCategory",           /* Text category */
+    "MyEntry",              /* Text entry */
+    true,                   /* Use position */
+    mySoundArea,            /* Position entity */
+    0.0f,                   /* Minimum hearing distance */
+    10.0f                   /* Maximum hearing distance */
+);
+```
+
+For every parameter specified, there should be a comment with either the parameter's name or a description. This also avoids the so called "Boolean trap" where two booleans are provided and the user has no idea what they represent.
+
 ### Event Initialization
 
 When a new event requiring collision callback definition or any other type of initialization is created, its initialize method (located under the right banner) must be called from the `Main - g` module or in a place derived from its functionality.
