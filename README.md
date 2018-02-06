@@ -281,6 +281,26 @@ else
 }
 ```
 
+### Private functions
+
+Private functions are in the following format `_FunctionName()`. These function should not be called by a programmer. They are called by an internal system.
+
+Example:
+
+```cs
+// Can be called by a user outside of the current module.
+void DoAction()
+{
+   // Code
+}
+
+// Can only be called by other functions in this module.
+void _DoAction()
+{
+   // Code
+}
+```
+
 ### Event Initialization
 
 When a new event requiring collision callback definition or any other type of initialization is created, its initialize method (located under the right banner) must be called from the `Main - g` module or in a place derived from its functionality.
