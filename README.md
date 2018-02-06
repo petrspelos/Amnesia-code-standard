@@ -249,6 +249,37 @@ Due to the way HPL2 is built, when iterating through an array using a for loop, 
 for(uint i = 0; i < usedSounds.length(); i++) PreloadSound(usedSounds[i]);
 ```
 
+### Switch statement
+
+Switch statements are not allowed by this standard. The prefered alternative is an if-statement.
+
+Instead of
+
+```cs
+switch(name)
+{
+   case "Jon":
+      // code
+      break;
+   default:
+      // code
+      break;
+}
+```
+
+use
+
+```cs
+if(name == "Jon")
+{
+   // code
+}
+else
+{
+   // code
+}
+```
+
 ### Event Initialization
 
 When a new event requiring collision callback definition or any other type of initialization is created, its initialize method (located under the right banner) must be called from the `Main - g` module or in a place derived from its functionality.
