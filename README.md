@@ -200,7 +200,7 @@ Modules can declare their own variables. The variables defined in each module mu
 
 All variables have to contain the banner's prefix. The standard naming convention is camelCase with the first later lowercase. This applies to all variable names.
 
-If the variable does not change or references a static type (such as a sound file name, music file or map entity) it must be declared as a constant.
+All of these variables must be delcared as constants. The use of `GetLocalVar___();` and `SetLocalVar___(__, __);` is recommended for non-constant variables.
 
 ```cs
 // ---------------------------
