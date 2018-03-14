@@ -22,6 +22,7 @@ Anyone is free to follow this standard.
     * [Switch statements](#switch-statement)
     * [Private functions](#private-functions)
     * [Calling functions with long signatures](#calling-functions-with-long-signatures)
+    * [Using enums](#using-enums)
     * [Event initialization](#event-initialization)
 ## Custom Story structure
 The directory of a custom story should contain all non-empty folders needed for the full and intended playthrough of the mod.
@@ -311,18 +312,41 @@ Example (Playing voiceover files):
 
 ```cs
 AddEffectVoice(
-    myFile,                 /* Voice File */
-    "",                     /* Effect File */
-    "MyCategory",           /* Text category */
-    "MyEntry",              /* Text entry */
-    true,                   /* Use position */
-    mySoundArea,            /* Position entity */
-    0.0f,                   /* Minimum hearing distance */
-    10.0f                   /* Maximum hearing distance */
+    myFile,       /* Voice File */
+    "",           /* Effect File */
+    "MyCategory", /* Text category */
+    "MyEntry",    /* Text entry */
+    true,         /* Use position */
+    mySoundArea,  /* Position entity */
+    0.0f,         /* Minimum hearing distance */
+    10.0f         /* Maximum hearing distance */
 );
 ```
 
 For every parameter specified, there should be a comment with either the parameter's name or a description. This also avoids the so called "Boolean trap" where two booleans are provided and the user has no idea what they represent.
+
+### Using enums
+
+When dealing with Amnesia's script functions, some of them require a state represented as a number. This is usually misleading and can make the code harder to read. For that purpose, these integers should be substituted with a enum.
+
+```cpp
+// declaring an enum
+enum CollisionState
+{
+    onlyEnter = 1,
+    onlyLeave = -1,
+    any = 0
+}
+
+// usage in an entity callback
+AddEntityCollideCallback(
+    "Player",                 /* Parent Name */
+    collideArea,              /* Child Name */
+    "OnWalkForwardCollide",   /* Callback Function */
+    true,                     /* Delete on collide */
+    CollisionState::onlyEnter /* State */
+);
+```
 
 ### Event Initialization
 
