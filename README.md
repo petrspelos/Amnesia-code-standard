@@ -89,7 +89,7 @@ New categories and entries should be in the following format:
 
 ### Indentation
 
-With each new depth the indentation increases by one `TAB`.
+With each new depth the indentation increases by **four spaces**.
 
 ### Spacing
 
