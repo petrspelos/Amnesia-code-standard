@@ -111,15 +111,19 @@ Another exception is a space between Entries of different type belonging to the 
 
 The ".hps" files are the script files executing when a map is launched. The engine dictates the name is exactly the same as the map it's for, the only difference being the ".hps" extension. The following recommendation aims to create an easy to navigate and understand code environment.
 
+The decoration should be exactly 80 columns (characters). That is two slashes `/` a single space and 77 dashes `-`.
+
+This visually promotes the enforced line-length by creating a reference point. Since anything longer than the banner decoration line is failing the line length rule.
+
 ### Template
 ```cs
-// ---------------------------
+// ----------------------------------------------------------------------------
 // Debug - dbg
-// ---------------------------
+// ----------------------------------------------------------------------------
 
-// ---------------------------
+// ----------------------------------------------------------------------------
 // Main - g
-// ---------------------------
+// ----------------------------------------------------------------------------
 
 void Preload()
 {
