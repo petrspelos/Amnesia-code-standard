@@ -162,9 +162,9 @@ A banner can be divided into three parts.
 For example the following banner:
 
 ```cs
-// ---------------------------
+// ----------------------------------------------------------------------------
 // Oil Lab - ol
-// ---------------------------
+// ----------------------------------------------------------------------------
 ```
 
 `Oil Lab` is the name of this banner,
@@ -182,9 +182,9 @@ This standard uses two reserved banner names and prefixes for the common modules
 These special banners have its own purpose and should be defined in every .hps file as part of the standard.
 
 ```cs
-// ---------------------------
+// ----------------------------------------------------------------------------
 // Debug - dbg
-// ---------------------------
+// ----------------------------------------------------------------------------
 ```
 
 `Debug` banner marks the beginning of all Debug variable and function definitions used for the purpose of debugging.
@@ -192,9 +192,9 @@ These special banners have its own purpose and should be defined in every .hps f
 All of these variables have to have the `dbg` prefix as part of the module variable definition and have to be constants.
 
 ```cs
-// ---------------------------
+// ----------------------------------------------------------------------------
 // Main - g
-// ---------------------------
+// ----------------------------------------------------------------------------
 ```
 
 `Main` with the prefix `g` for global, marks the beginning of the Main module. This module contains all Amnesia callback functions (OnStart, OnEnter and OnLeave) even if they are not used.
@@ -208,9 +208,9 @@ All variables have to contain the banner's prefix. The standard naming conventio
 All of these variables must be delcared as constants. The use of `GetLocalVar___();` and `SetLocalVar___(__, __);` is recommended for non-constant variables.
 
 ```cs
-// ---------------------------
+// ----------------------------------------------------------------------------
 // MyFirstModule - mfm
-// ---------------------------
+// ----------------------------------------------------------------------------
 const string mfmSoundFile = "sound_file.snt";
 const string mfmEntityToMove = "MyEntity";
 ```
