@@ -19,11 +19,13 @@ Anyone is free to follow this standard.
     * [Functions](#functions)
     * [Debug actions](#debug-actions)
     * [For loop](#for-loop)
+        * [For loop whitespace](#for-loop-whitespace)
     * [Switch statements](#switch-statement)
     * [Private functions](#private-functions)
     * [Calling functions with long signatures](#calling-functions-with-long-signatures)
     * [Using enums](#using-enums)
     * [Event initialization](#event-initialization)
+    * [Empty functions](#empty-functions)
 ## Custom Story structure
 The directory of a custom story should contain all non-empty folders needed for the full and intended playthrough of the mod.
 
@@ -257,6 +259,22 @@ Due to the way HPL2 is built, when iterating through an array using a for loop, 
 for(uint i = 0; i < usedSounds.length(); i++) PreloadSound(usedSounds[i]);
 ```
 
+#### For loop whitespace
+
+Whitespaces in for loops are also strict.
+
+```cs
+// (!) INCORECT WHITESPACE USAGE (!)
+for(int i=0;i<=2;i++)
+{
+}
+
+// CORRECT
+for(int i = 0; i <= 2; i++)
+{
+}
+```
+
 ### Switch statement
 
 Switch statements are not allowed by this standard. The prefered alternative is an if-statement.
@@ -364,3 +382,15 @@ void OnStart()
     InitializeEvents(); // Group of minor events being initialized.
 }
 ```
+
+### Empty functions
+
+When you need to define a function (perhaps for preloading), but you don't have any content for it, the function should be in the following format:
+
+```cpp
+void Preload()
+{
+}
+```
+
+That is without an empty line.
