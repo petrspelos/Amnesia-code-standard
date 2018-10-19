@@ -2,30 +2,18 @@
 ## Open content standard
 Anyone is free to follow this standard.
 
-**Quick selection:**
+## Development Tools
 
-* [File naming](#file-naming)
-* [extra_english.lang](#extra_englishlang)
-    * [Template](#template)
-    * [Comments](#comments)
-    * [Category and Entry](#category-and-entry)
-    * [Indentation](#indentation)
-    * [Spacing](#spacing)
-* [HPS Files](#hps-files)
-    * [Template](#template-1)
-    * [Banners](#banners)
-        * [Special banners](#special-banners)
-    * [Module variables](#module-variables)
-    * [Functions](#functions)
-    * [Debug actions](#debug-actions)
-    * [For loop](#for-loop)
-        * [For loop whitespace](#for-loop-whitespace)
-    * [Switch statements](#switch-statement)
-    * [Private functions](#private-functions)
-    * [Calling functions with long signatures](#calling-functions-with-long-signatures)
-    * [Using enums](#using-enums)
-    * [Event initialization](#event-initialization)
-    * [Empty functions](#empty-functions)
+_All development tools required are free._
+
+The assumed tools for this standard are:
+
+- Visual Studio Code ([Download](https://code.visualstudio.com/) | [Setup Guide](https://www.youtube.com/watch?v=LL5N7NEvPBo))
+- C++ extension for VSCode ([View](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))
+- Amnesia (HPL2) extension for VSCode ([View](https://marketplace.visualstudio.com/items?itemName=Spelos.HPL2Syntax))
+- Associate extension with C++ syntax ([Guide](#file-association-guide))
+- Amnesia Preprocessor (Available Soon)
+
 ## Custom Story structure
 The directory of a custom story should contain all non-empty folders needed for the full and intended playthrough of the mod.
 
@@ -49,10 +37,10 @@ To avoid this issue, a unique custom story prefix is recommended for all custom 
 
 An example prefix for a custom story called `The Adventures of Phill` might be `TAoP` and the custom files might be something like `TAoP_Village.map`, `TAoP_Dialogue01_Kate_00.ogg`, etc.
 
-This standard demands a use of a single prefix for **all custom files and maps.**
+This standard demands the use of a single prefix for **all custom files and maps.**
 
 ## extra_english.lang
-The "extra_english.lang" file should adhere to the common XML schema rules. The main tag names must be typed in all capital letters.
+The `extra_english.lang` file should adhere to the common XML schema rules (with the exception of XML header). The main tag names must be typed in all capital letters.
 
 ### Template
 
@@ -109,113 +97,127 @@ This is done to visually separate pairs.
 
 Another exception is a space between Entries of different type belonging to the same Category. For example `Notes`, `Diaries` and `Quests` share the same Category (`Journal`) there should be an empty line between the last Diary and the first Quest. No line should be left blank between individual Quests, however.
 
+Breaking inside an Entry tag is not allowed.
+```xml
+    <Entry Name="MyEntry">Example of what[br]
+not to do[br]
+inside an entry.</Entry>
+```
+
 ## HPS Files
 
-The ".hps" files are the script files executing when a map is launched. The engine dictates the name is exactly the same as the map it's for, the only difference being the ".hps" extension. The following recommendation aims to create an easy to navigate and understand code environment.
+The `.hps` files are the script files executing when a map is launched. The engine dictates the name is exactly the same as the map it's for. The only difference being the `.hps` extension.
 
-The decoration should be exactly 80 columns (characters). That is two slashes `/` a single space and 77 dashes `-`.
+In order to not be limited by this single file limitation, the use of **Amnesia Preprocessor** is required. The preprocessor takes in Source HPS (`.shps`) and Include HPS (`.ihps`) files and generates the final `.hps` code capable of executing.
 
-This visually promotes the enforced line-length by creating a reference point. Since anything longer than the banner decoration line is failing the line length rule.
+What follows is a couple of recommendations in terms of file separation and structure of your `.ihps` and `.shps` code.
 
-### Template
+### General code structure
+
+In order to keep the source code readable and clean, no line should be longer than **80 columns**.
+
+### Preloading sound and particle systems
+
+The Amnesia engine has to read and parse `.snt` and `.ps` file, this procedure usually takes longer than a game's tick. This results in a small stutter whenever these files are used.
+
+To get rid of this stutter, a `PreloadSound` and `PreloadParticleSystem` calls need to be made in one of the entry methods.
+
+Usually a new function is created containing all of the preload calls. This function is usually called `Preload`.
+
 ```cs
-// ----------------------------------------------------------------------------
-// Debug - dbg
-// ----------------------------------------------------------------------------
-
-// ----------------------------------------------------------------------------
-// Main - g
-// ----------------------------------------------------------------------------
-
 void Preload()
 {
-    // TODO:
-    // Implement preload logic.
+    PreloadSound("__.snt");
+    PreloadSound("__.snt");
+    PreloadParticleSystem("__.ps");
+    PreloadParticleSystem("__.ps");
 }
+```
 
+Keeping track of this function and making sure it has all files used while not containing those that are not used is a common source of hard to detect mistakes.
+
+**Amnesia Preprocessor**, however, generates this method if none is declared. All that needs to be done is:
+
+* Every usage of a particle system or a sound must use the `.snt` or `.ps` extension inside it's string.
+* A `Preload();` call should be made from one of the entry methods, while not defining the `Preload` function itself.
+
+```cs
 void OnEnter()
 {
     Preload();
 }
 
-void OnLeave()
+void MyFunction()
 {
-
-}
-
-void OnStart()
-{
-    
+    PlaySound("ghost.snt");
 }
 ```
+In the above example, notice `Preload` is called, but is not defined. When the **Amnesia Preprocessor** runs, it will generate the Preload method for us automatically generating the `PreloadSound` call for `ghost.snt` because we used it with the proper extension.
 
-### Banners
+:warning: Note, that the following will not be picked up by the current Preprocessor version:
+```cs
+PreloadSound("MySound" + i + ".snt");
+```
+as that would mean interpreting the code, which is beyond the preprocessor's scope.
 
-Due to the engine not supporting multiple files, this standard uses banners to separate modules and code sections.
+### Banner comments
 
-A banner can be divided into three parts.
+Banner comments are way of conveying header-like information for all sorts of purposes.
 
-* Decoration
+You might want to use banner comments for declaring sections of your code, for example.
 
-* Name
+The decoration of a banner comment should be exactly 80 columns (characters). That is two slashes `/` a single space and 77 dashes `=`.
 
-* Prefix
-
-For example the following banner:
+This visually promotes the enforced line-length by creating a reference point. Since anything longer than the banner decoration line is failing the line length rule.
 
 ```cs
-// ----------------------------------------------------------------------------
-// Oil Lab - ol
-// ----------------------------------------------------------------------------
+// ============================================================================
+// Banner Comment
+// ============================================================================
+
 ```
 
-`Oil Lab` is the name of this banner,
+### Include directive
 
-`ol` is the Prefix
+With **Amnesia Preprocessor**, and `#include` directive is allowed inside `.shps` files.
+What this directive does is it replaces the directive with the contents of a mentioned file (most commonly `.ihps`).
 
-and the rest is decoration.
+This enables us to separate our code into reusable pieces.
 
-Banners only mark a beginning of a section, they never close a section and no closing banners should be created.
-
-#### Special banners
-
-This standard uses two reserved banner names and prefixes for the common modules. `Debug - dbg` and `Main - g`.
-
-These special banners have its own purpose and should be defined in every .hps file as part of the standard.
+For example:
 
 ```cs
-// ----------------------------------------------------------------------------
-// Debug - dbg
-// ----------------------------------------------------------------------------
+// These are contents of: myScares.ihps
+void ExecuteScare()
+{
+    // ...
+}
 ```
 
-`Debug` banner marks the beginning of all Debug variable and function definitions used for the purpose of debugging.
+```cpp
+// These are contents of: map_01.shps
+#include "myScares.ihps"
 
-All of these variables have to have the `dbg` prefix as part of the module variable definition and have to be constants.
-
-```cs
-// ----------------------------------------------------------------------------
-// Main - g
-// ----------------------------------------------------------------------------
+void OnEnter()
+{
+    ExecuteScare(); // is a valid call
+}
 ```
 
-`Main` with the prefix `g` for global, marks the beginning of the Main module. This module contains all Amnesia callback functions (OnStart, OnEnter and OnLeave) even if they are not used.
+We will talk about the structure more later in this standard.
 
-### Module variables
+### Require directive
 
-Modules can declare their own variables. The variables defined in each module must be directly related to the module's function.
+The preprocessor also enables `.ihps` files to have a dependency on other `.ihps` files.
+For example if `module_01.ihps` requires a function from `module_02.ihps`, the `module_01.ihps` should contain the followin require directive:
 
-All variables have to contain the banner's prefix. The standard naming convention is camelCase with the first later lowercase. This applies to all variable names.
-
-All of these variables must be delcared as constants. The use of `GetLocalVar___();` and `SetLocalVar___(__, __);` is recommended for non-constant variables.
-
-```cs
-// ----------------------------------------------------------------------------
-// MyFirstModule - mfm
-// ----------------------------------------------------------------------------
-const string mfmSoundFile = "sound_file.snt";
-const string mfmEntityToMove = "MyEntity";
+```cpp
+#require "module_02.ihps"
 ```
+
+This will not copy the contents of the required file, but it will enforce the existence of an include in a parent file.
+
+If `map_03.shps` has an include directive of `module_01.ihps` but not `module_02.ihps`, the preprocessor will consider this a critical error and you will be notified of the missing dependency until you also add an include directive of `module_02.ihps` inside `map_03.shps`.
 
 ### Functions
 
@@ -239,24 +241,12 @@ void ActivateEntity(string entity, bool active)
 
 Functions should do only one thing. It's better to create multiple small and reusable function than a single large function.
 
-### Debug actions
-
-When defining a behavior dependent on debug variables, the debug part of the behavior must be enclosed in an XML-like comment tag.
-
-```cs
-// <DEBUG>
-if(dbgFullOilStart) SetPlayerLampOil(100.0f);
-// </DEBUG>
-```
-
-This is done to easily automate the removal of these Debug behaviors before release.
-
 ### For loop
 
 Due to the way HPL2 is built, when iterating through an array using a for loop, the datatype must be an unsigned integer. Other types of for loop may use a standard integer.
 
 ```cs
-for(uint i = 0; i < usedSounds.length(); i++) PreloadSound(usedSounds[i]);
+for(uint i = 0; i < usedSounds.length(); i++) { PreloadSound(usedSounds[i]) };
 ```
 
 #### For loop whitespace
@@ -306,23 +296,25 @@ else
 }
 ```
 
-### Private functions
+Additionally if statements and for loops must always have a body (`{}`) even if a single line syntax is used.
 
-Private functions are in the following format `_FunctionName()`. These function should not be called by a programmer. They are called by an internal system.
-
-Example:
+This is because when an extension needs to be made, not having the body might result in an accidental bug or misunderstanding.
 
 ```cs
-// Can be called by a user outside of the current module.
-void DoAction()
-{
-   // Code
-}
+// (!) Incorrect (!)
+if(condition) FunctionCall();
 
-// Can only be called by other functions in this module.
-void _DoAction()
-{
-   // Code
+// (!) Incorrect (!)
+if(condition)
+    FunctionCall();
+
+// Correct
+if(condition) { FunctionCall(); }
+
+// Correct
+if(condition)
+{ 
+    FunctionCall();
 }
 ```
 
@@ -345,7 +337,7 @@ AddEffectVoice(
 );
 ```
 
-For every parameter specified, there should be a comment with either the parameter's name or a description. This also avoids the so called "Boolean trap" where two booleans are provided and the user has no idea what they represent.
+For every parameter specified, there should be a comment with either the parameter's name or a description. This also avoids the so called "[Boolean trap](https://ariya.io/2011/08/hall-of-api-shame-boolean-trap)" where two booleans are provided and the user has no idea what they represent.
 
 ### Using enums
 
@@ -370,27 +362,95 @@ AddEntityCollideCallback(
 );
 ```
 
-### Event Initialization
+This enum, should not be redefined, instead, it should be included using a Preprocessor directive from a common include file.
 
-When a new event requiring collision callback definition or any other type of initialization is created, its initialize method (located under the right banner) must be called from the `Main - g` module or in a place derived from its functionality.
+### Timer Switch
+
+Timer switch is a higher level structure typically used for cutscenes and other timed events.
 
 ```cs
-void OnStart()
+void MyTimerSwitch(string t)
 {
-    SetPlayerLampOil(0.0f);
-    InitializeMainQuest(); // An event being intialized in OnStart.
-    InitializeEvents(); // Group of minor events being initialized.
+    int stage = GetLocalVarInt("MyTimerSwitch");
+    AddLocalVarInt("MyTimerSwitch", 1);
+    float delay = 0.0f;
+
+    if(stage == 0)
+    {
+        // code here
+
+        delay = 1.0f;
+    }
+    else if(stage == 1)
+    {
+        // code here
+        delay = 1.0f;
+    }
+    else
+    {
+        return;
+    }
+
+    AddTimer("", delay, "MyTimerSwitch");
 }
 ```
 
-### Empty functions
+Notice the name `MyTimerSwitch` is repeated in the control local variable and the function name.
 
-When you need to define a function (perhaps for preloading), but you don't have any content for it, the function should be in the following format:
+Every time a Timer Switch is called, it gets and increments the control counter, called `stage`. A timer switch can have as many stages as are needed.
 
-```cpp
-void Preload()
+Every stage can overwrite the default `delay` variable, which is in seconds and represents the delay before looping back to the timer switch's next stage.
+
+The loop continue until it's broken with a `return;` or until it falls into the `else` branch.
+
+### Voice over in a timer switch
+
+Sometimes, delay isn't enough and a variable delay based on a voice over effect might be needed. For this purpose the use of a helper method should be used:
+
+```cs
+else if(stage == 1)
 {
+    SetEffectVoiceOverCallback("MyTimerSwitchVoiceLoop");
+    AddEffectVoice(/* ... */);
+    return;
 }
 ```
+where the loop function is defined as
+```cs
+void MyTimerSwitchLoop()
+{
+    AddTimer("", 0.0f, "MyTimerSwitch");
+}
+```
+this makes sure after a voice over is done, the timerSwitch will trigger again.
+:warning: make sure the `return;` statement is always included at the end of such loop, otherwise, the timer switch will continue its execution despite the voice over.
 
-That is without an empty line.
+### Module structure
+
+A module in Amnesia is a source code file of either `.shps` or `.ihps` type that contains functions and variables that are in some way related.
+
+For example, all functions extending the Sound API of Amnesia should be in the same module. Perhaps even called `AmnesiaSoundExtensions.ihps`.
+
+A special kind of a module, is a **map controller**, this is a `.shps` named after an existing `.map` files that contains all the necessary directives and boilerplate code to compile into a cohesive map.
+
+Map controllers should be kept simple. Every instance of a Timer Switch should be delegated into a separate `.ihps` file.
+
+## Additional Resources
+
+### File Association Guide
+
+To associate source files with the C++ syntax, we need to setup file associations inside Visual Studio Code.
+
+1. To open settings, first open the Command Palette by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>
+2. Type `Open Settings` and select the option with `(JSON)` at the end.
+3. If you do not see `FileAssociations` on the right side of your screen, you can add it by searching it in the left view, or manually adding the following section to your right side view:
+
+```json
+"files.associations": {
+    "*.hps": "cpp",
+    "*.ihps": "cpp",
+    "*.shps": "cpp",
+    "*.lang": "xml",
+    "*.cfg": "xml"
+}
+```
