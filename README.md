@@ -136,29 +136,7 @@ void Preload()
 
 Keeping track of this function and making sure it has all files used while not containing those that are not used is a common source of hard to detect mistakes.
 
-**Amnesia Preprocessor**, however, generates this method if none is declared. All that needs to be done is:
-
-* Every usage of a particle system or a sound must use the `.snt` or `.ps` extension inside it's string.
-* A `Preload();` call should be made from one of the entry methods, while not defining the `Preload` function itself.
-
-```cs
-void OnEnter()
-{
-    Preload();
-}
-
-void MyFunction()
-{
-    PlaySound("ghost.snt");
-}
-```
-In the above example, notice `Preload` is called, but is not defined. When the **Amnesia Preprocessor** runs, it will generate the Preload method for us automatically generating the `PreloadSound` call for `ghost.snt` because we used it with the proper extension.
-
-:warning: Note, that the following will not be picked up by the current Preprocessor version:
-```cs
-PreloadSound("MySound" + i + ".snt");
-```
-as that would mean interpreting the code, which is beyond the preprocessor's scope.
+**Amnesia Preprocessor**, however, generates this method if none is declared.
 
 ### Banner comments
 
