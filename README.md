@@ -184,19 +184,6 @@ void OnEnter()
 
 We will talk about the structure more later in this standard.
 
-### Require directive
-
-The preprocessor also enables `.ihps` files to have a dependency on other `.ihps` files.
-For example if `module_01.ihps` requires a function from `module_02.ihps`, the `module_01.ihps` should contain the followin require directive:
-
-```cpp
-#require "module_02.ihps"
-```
-
-This will not copy the contents of the required file, but it will enforce the existence of an include in a parent file.
-
-If `map_03.shps` has an include directive of `module_01.ihps` but not `module_02.ihps`, the preprocessor will consider this a critical error and you will be notified of the missing dependency until you also add an include directive of `module_02.ihps` inside `map_03.shps`.
-
 ### Functions
 
 All function names have to adhere to PascalCase format.
