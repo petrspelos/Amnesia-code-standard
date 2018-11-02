@@ -12,7 +12,7 @@ The assumed tools for this standard are:
 - C++ extension for VSCode ([View](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))
 - Amnesia (HPL2) extension for VSCode ([View](https://marketplace.visualstudio.com/items?itemName=Spelos.HPL2Syntax))
 - Associate extension with C++ syntax ([Guide](#file-association-guide))
-- Amnesia Preprocessor (Available Soon)
+- Amnesia Preprocessor ([GitHub](https://github.com/petrspelos/amnesia-preprocessor))
 
 ## Custom Story structure
 The directory of a custom story should contain all non-empty folders needed for the full and intended playthrough of the mod.
