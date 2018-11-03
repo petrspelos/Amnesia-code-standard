@@ -57,6 +57,8 @@ An example prefix for a custom story called `The Adventures of Phill` might be `
 
 This standard demands the use of a single prefix for **all custom files and maps.**
 
+:warning: An exception is with standard imported assets such as AMFP models. If there are no changes made to the asset, it can retain its original name, since a collision would not matter with these assets.
+
 ## extra_english.lang
 The `extra_english.lang` file should adhere to the common XML schema rules (with the exception of XML header). The main tag names must be typed in all capital letters.
 
@@ -136,11 +138,11 @@ In order to keep the source code readable and clean, no line should be longer th
 
 ### Preloading sound and particle systems
 
-The Amnesia engine has to read and parse `.snt` and `.ps` file, this procedure usually takes longer than a game's tick. This results in a small stutter whenever these files are used.
+The Amnesia engine has to read and parse `.snt` and `.ps` files, this procedure usually takes longer than a game's tick. This results in a small stutter whenever these files are used.
 
-To get rid of this stutter, a `PreloadSound` and `PreloadParticleSystem` calls need to be made in one of the entry methods.
+To get rid of this stutter, a `PreloadSound` and `PreloadParticleSystem` calls need to be executed in one of the entry methods.
 
-Usually a new function is created containing all of the preload calls. This function is usually called `Preload`.
+Commonly a new function called `Preload` is created containing all of the preload calls.
 
 ```cs
 void Preload()
@@ -152,13 +154,13 @@ void Preload()
 }
 ```
 
-Keeping track of this function and making sure it has all files used while not containing those that are not used is a common source of hard to detect mistakes.
+Keeping track of this function and making sure it has all necessary files used while not containing those that are not used is a common source of human errors.
 
-**Amnesia Preprocessor**, however, generates this method if none is declared.
+**Amnesia Preprocessor**, however, generates this method if none is declared. Therefore, you should never declase a `Preload` function inside a `.shps` or `.ihps` file.
 
 ### Banner comments
 
-Banner comments are way of conveying header-like information for all sorts of purposes.
+Banner comments are a way of conveying header-like information for all sorts of purposes.
 
 You might want to use banner comments for declaring sections of your code, for example.
 
@@ -175,8 +177,8 @@ This visually promotes the enforced line-length by creating a reference point. S
 
 ### Include directive
 
-With **Amnesia Preprocessor**, and `#include` directive is allowed inside `.shps` files.
-What this directive does is it replaces the directive with the contents of a mentioned file (most commonly `.ihps`).
+With **Amnesia Preprocessor**, an `#include` directive is allowed inside `.shps` and `.ihps` files.
+What this directive does is it includes contents of a mentioned `.ihps` file.
 
 This enables us to separate our code into reusable pieces.
 
@@ -200,11 +202,11 @@ void OnEnter()
 }
 ```
 
-We will talk about the structure more later in this standard.
+To read more about include directives see the guide [HERE](https://github.com/petrspelos/amnesia-preprocessor/blob/master/docs/examples/CustomStory.md).
 
 ### Functions
 
-All function names have to adhere to PascalCase format.
+All function names have to adhere to [PascalCase format](http://wiki.c2.com/?PascalCase).
 
 Function names have to be descriptive.
 
