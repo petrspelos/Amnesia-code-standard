@@ -1,23 +1,34 @@
-# Amnesia: The Dark Descent custom stories
-## Open content standard
-Anyone is free to follow this standard.
+# Amnesia Code Standard
 
-## Development Tools
+This is an open standard for creating custom stories and other mods for Amnesia: The Dark Descent. The standard serves to provide a unified set of development guidelines and best practices.
+
+## 🔧 Development Tools
 
 _All development tools required are free._
 
 The assumed tools for this standard are:
 
 - Visual Studio Code ([Download](https://code.visualstudio.com/) | [Setup Guide](https://www.youtube.com/watch?v=LL5N7NEvPBo))
-- C++ extension for VSCode ([View](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))
-- Amnesia (HPL2) extension for VSCode ([View](https://marketplace.visualstudio.com/items?itemName=Spelos.HPL2Syntax))
-- Associate extension with C++ syntax ([Guide](#file-association-guide))
+    - Amnesia (HPL2) extension ([View](https://marketplace.visualstudio.com/items?itemName=Spelos.HPL2Syntax))
+    - C++ extension ([View](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools))
+        - Associated extensions with C++ syntax ([Guide](#file-association-guide))
 - Amnesia Preprocessor ([GitHub](https://github.com/petrspelos/amnesia-preprocessor))
 
-## Custom Story structure
+## 📁 Custom Story structure
 The directory of a custom story should contain all non-empty folders needed for the full and intended playthrough of the mod.
 
-These folders must (according to this standard) mirror Amnesia: The Dark Descent's internal folder structure. That is **lowercase letters of the English alphabet** and an underscore `_` for word separation.
+These folders must (according to this standard) mirror the original game's internal folder structure. That is **lowercase letters of the English alphabet** and an underscore `_` for word separation.
+
+✅ **DO** name your subfolder
+```
+static_objects
+```
+❌ **DON NOT** name your subfolder
+```
+Static Objects
+```
+
+> This makes it easier for the game to properly load your resources. Mirroring the original game's structure also ensures any potential future updates will not break your mod, unless they also change the original game's directory structure.
 
 ### File naming
 :warning: **Failure to understand this section might lead to game-breaking bugs!**
