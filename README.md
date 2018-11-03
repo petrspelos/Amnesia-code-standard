@@ -34,11 +34,18 @@ Static Objects
 :warning: **Failure to understand this section might lead to game-breaking bugs!**
 
 When loading custom stories, Amnesia follows the alphabetical order of the custom story's folder names.
-Let's assume we have the following custom story folders inside Amnesia's `custom_stories` directory:
+Let's assume we have the following custom stories installed:
 
-`A_CustomStory`
-`B_CustomStory`
-`C_CustomStory`
+```
+📁custom_stories
+    ├ 📁A_CustomStory
+    │   └📁maps
+    │       └📄Cellar.map
+    ├ 📁B_CustomStory
+    │   └📁maps
+    │       └📄Cellar.map
+    └ 📁C_CustomStory
+```
 
 No matter what their name inside `custom_story_settings.cfg` is, they will be loaded in that order. That is Alphabetically according to their folder names.
 
