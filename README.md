@@ -138,7 +138,7 @@ In order to keep the source code readable and clean, no line should be longer th
 
 ### Preloading sound and particle systems
 
-The Amnesia engine has to read and parse `.snt` and `.ps` files, this procedure usually takes longer than a game's tick. This results in a small stutter whenever these files are used.
+The Amnesia engine has to read and parse `.snt` and `.ps` files. This procedure usually takes longer than a game's tick. This results in a small stutter whenever these files are used.
 
 To get rid of this stutter, a `PreloadSound` and `PreloadParticleSystem` calls need to be executed in one of the entry methods.
 
@@ -156,7 +156,7 @@ void Preload()
 
 Keeping track of this function and making sure it has all necessary files used while not containing those that are not used is a common source of human errors.
 
-**Amnesia Preprocessor**, however, generates this method if none is declared. Therefore, you should never declase a `Preload` function inside a `.shps` or `.ihps` file.
+**Amnesia Preprocessor**, however, generates this method if none is declared. Therefore, you should never declare a `Preload` function inside a `.shps` or `.ihps` file.
 
 ### Banner comments
 
@@ -164,7 +164,7 @@ Banner comments are a way of conveying header-like information for all sorts of 
 
 You might want to use banner comments for declaring sections of your code, for example.
 
-The decoration of a banner comment should be exactly 80 columns (characters). That is two slashes `/` a single space and 77 dashes `=`.
+The decoration of a banner comment should be less than 80 columns (characters). That is two forward slashes (`/`) a single space and 76 dashes `=`.
 
 This visually promotes the enforced line-length by creating a reference point. Since anything longer than the banner decoration line is failing the line length rule.
 
@@ -202,7 +202,7 @@ void OnEnter()
 }
 ```
 
-To read more about include directives see the guide [HERE](https://github.com/petrspelos/amnesia-preprocessor/blob/master/docs/examples/CustomStory.md).
+To read more about the include directive see the guide [HERE](https://github.com/petrspelos/amnesia-preprocessor/blob/master/docs/examples/CustomStory.md).
 
 ### Functions
 
@@ -224,11 +224,11 @@ void ActivateEntity(string entity, bool active)
 }
 ```
 
-Functions should do only one thing. It's better to create multiple small and reusable function than a single large function.
+Functions should do only one thing. It's better to create multiple small and reusable functions rather than a single large one.
 
 ### For loop
 
-Due to the way HPL2 is built, when iterating through an array using a for loop, the datatype must be an unsigned integer. Other types of for loop may use a standard integer.
+Due to the way HPL2 is built, when iterating through an array using a for loop, the datatype must be an unsigned integer. Other types of for loop may use the standard signed integer.
 
 ```cs
 for(uint i = 0; i < usedSounds.length(); i++) { PreloadSound(usedSounds[i]) };
@@ -302,6 +302,12 @@ if(condition)
     FunctionCall();
 }
 ```
+
+**:warning: Exception**
+
+The only exception to the switch statement rule is the case where it greatly reduces the code's size and improves readability.
+
+For example returning a random string literal by a random integer.
 
 ### Calling functions with long signatures
 
